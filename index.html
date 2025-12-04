@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Central Dark - Suite Completa</title>
+    <title>Central Dark | Luxury OS</title>
     
-    <!-- Fonte Moderna (Outfit & JetBrains Mono) -->
+    <!-- Fontes Premium -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Ícones Lucide -->
+    <!-- Ícones -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <script>
@@ -22,32 +22,21 @@
                 extend: {
                     fontFamily: {
                         sans: ['Outfit', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
+                        mono: ['Space Grotesk', 'monospace'], // Fonte mono mais moderna
                     },
                     colors: {
-                        dark: {
-                            900: '#0f172a',
-                            800: '#1e293b',
-                            700: '#334155',
-                            950: '#020617',
-                        },
-                        neon: {
-                            blue: '#3b82f6',
-                            purple: '#8b5cf6',
-                            green: '#10b981',
-                            cyan: '#06b6d4',
-                            pink: '#ec4899',
-                            yellow: '#eab308'
+                        luxury: {
+                            black: '#050505',
+                            card: '#0F1014',
+                            gold: '#D4AF37',
+                            goldLight: '#F3E5AB',
+                            goldDim: '#8A7120',
+                            accent: '#3B82F6', // Tech Blue
                         }
                     },
-                    animation: {
-                        'float': 'float 3s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        }
+                    boxShadow: {
+                        'glow-gold': '0 0 20px rgba(212, 175, 55, 0.15)',
+                        'glow-blue': '0 0 20px rgba(59, 130, 246, 0.15)',
                     }
                 }
             }
@@ -55,423 +44,572 @@
     </script>
 
     <style>
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .content-box {
-            transition: all 0.3s ease-in-out;
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-        }
-        .content-box.active {
-            max-height: 800px; /* Altura segura */
-            opacity: 1;
-            margin-top: 1rem;
+        /* Reset e Base */
+        body { 
+            -webkit-tap-highlight-color: transparent; 
+            background-color: #050505;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(212, 175, 55, 0.05) 0%, transparent 30%);
         }
 
-        /* Estilo Dev */
-        .dev-line {
-            position: absolute;
-            left: 19px;
-            top: 40px;
-            bottom: -20px;
-            width: 2px;
-            background: #334155;
-            z-index: 0;
+        /* Glass Effect Premium */
+        .glass-card {
+            background: rgba(20, 20, 25, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
         }
 
-        /* Estilo Visual (Timeline) */
-        .visual-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(to bottom, #3b82f6, #8b5cf6, #ec4899);
-            transform: translateX(-50%);
-            z-index: 0;
-            opacity: 0.3;
+        /* Gradiente Dourado para Textos */
+        .text-gradient-gold {
+            background: linear-gradient(to right, #F3E5AB, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .tab-btn.active {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
+        /* Inputs Financeiros */
+        .input-money {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             color: white;
-            font-weight: 700;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1.25rem;
+            text-align: right;
+            transition: all 0.3s;
         }
-        .tab-btn {
-            color: #64748b;
-            border: 1px solid transparent;
+        .input-money:focus {
+            outline: none;
+            border-bottom: 1px solid #D4AF37;
+            box-shadow: 0 4px 10px -4px rgba(212, 175, 55, 0.3);
         }
 
-        /* Card Visual Animado */
-        .story-card {
+        /* Bottom Nav */
+        .nav-item {
             position: relative;
-            z-index: 10;
-            transition: transform 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .story-card:hover {
-            transform: scale(1.02);
+        .nav-item.active {
+            color: #D4AF37;
         }
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background: #D4AF37;
+            box-shadow: 0 0 10px #D4AF37;
+            border-radius: 2px;
+        }
+
+        /* Animações */
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; opacity: 0; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Esconde scrollbar */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        
+        /* Acordeão */
+        .content-box { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); max-height: 0; opacity: 0; overflow: hidden; }
+        .content-box.active { max-height: 800px; opacity: 1; margin-top: 1rem; }
     </style>
 </head>
-<body class="bg-dark-950 text-white min-h-screen pb-10 font-sans selection:bg-neon-pink selection:text-white">
+<body class="text-slate-300 min-h-screen pb-28 font-sans">
 
-    <!-- Background Tech Suave -->
-    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-neon-purple opacity-[0.08] blur-[120px] rounded-full"></div>
-        <div class="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-neon-blue opacity-[0.08] blur-[120px] rounded-full"></div>
-    </div>
-
-    <!-- Header -->
-    <header class="p-4 text-center sticky top-0 z-50 bg-dark-950/95 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20">
-        <div class="inline-flex items-center gap-2 mb-2">
-            <div class="bg-gradient-to-tr from-neon-blue to-neon-purple p-1.5 rounded-lg">
-                <i data-lucide="layers" class="text-white w-5 h-5"></i>
+    <!-- Header Minimalista -->
+    <header class="fixed top-0 w-full z-40 bg-luxury-black/80 backdrop-blur-xl border-b border-white/5 pt-12 pb-4 px-6 transition-all duration-300">
+        <div class="flex justify-between items-center max-w-md mx-auto">
+            <div>
+                <p class="text-[10px] text-luxury-gold uppercase tracking-[0.2em] font-bold mb-1">Central de Comando</p>
+                <h1 class="text-xl text-white font-medium tracking-wide">Dark<span class="font-light text-slate-500">System</span></h1>
             </div>
-            <h1 class="text-lg font-bold tracking-wide">DARK <span class="text-neon-blue">SYSTEM</span></h1>
-        </div>
-        
-        <!-- Tab Switcher (3 Abas) -->
-        <div class="flex p-1 bg-dark-900/80 rounded-xl mt-2 max-w-sm mx-auto border border-white/5">
-            <button onclick="switchTab('visual')" id="tab-visual" class="tab-btn active flex-1 py-2 text-[10px] md:text-xs rounded-lg transition-all flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2">
-                <i data-lucide="map" class="w-4 h-4"></i> Mapa Visual
-            </button>
-            <button onclick="switchTab('ops')" id="tab-ops" class="tab-btn flex-1 py-2 text-[10px] md:text-xs rounded-lg transition-all flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2">
-                <i data-lucide="zap" class="w-4 h-4"></i> Operacional
-            </button>
-            <button onclick="switchTab('dev')" id="tab-dev" class="tab-btn flex-1 py-2 text-[10px] md:text-xs rounded-lg transition-all flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2">
-                <i data-lucide="code-2" class="w-4 h-4"></i> Dev (Kaio)
-            </button>
+            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-luxury-card to-gray-900 border border-white/10 flex items-center justify-center shadow-glow-gold">
+                <i data-lucide="crown" class="w-5 h-5 text-luxury-gold"></i>
+            </div>
         </div>
     </header>
 
-    <main class="max-w-md mx-auto p-4 min-h-[80vh]">
+    <!-- Espaço para compensar Header Fixo -->
+    <div class="h-32"></div>
 
-        <!-- ================= ABA 1: VISUAL / MAPA MENTAL (Storytelling) ================= -->
-        <div id="view-visual" class="space-y-8 py-4 relative">
-            <div class="visual-line"></div>
-            
-            <div class="text-center mb-8 relative z-10">
-                <span class="bg-neon-blue/20 text-neon-blue text-xs px-3 py-1 rounded-full border border-neon-blue/30 uppercase tracking-wider font-bold">O Processo Explicado</span>
-                <p class="text-slate-400 text-xs mt-3 px-6">Entenda como transformamos vídeos brutos em dinheiro, passo a passo.</p>
-            </div>
+    <main class="max-w-md mx-auto px-5 space-y-6">
 
-            <!-- Card 1 -->
-            <div class="story-card bg-dark-800 p-6 rounded-2xl border border-white/5 shadow-xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 p-4 opacity-10">
-                    <i data-lucide="search" class="w-24 h-24 text-yellow-500"></i>
-                </div>
-                <div class="relative z-10">
-                    <div class="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center mb-4 text-yellow-400 animate-float">
-                        <i data-lucide="pickaxe" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-2">1. O Garimpo</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">
-                        Assim como num rio, a gente procura as "pepitas de ouro" (vídeos virais). Não criamos a pedra, apenas a encontramos.
-                    </p>
-                    <div class="mt-4 flex gap-2">
-                        <span class="text-[10px] bg-dark-900 px-2 py-1 rounded text-slate-500">TikTok</span>
-                        <span class="text-[10px] bg-dark-900 px-2 py-1 rounded text-slate-500">YouTube</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="story-card bg-dark-800 p-6 rounded-2xl border border-white/5 shadow-xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 p-4 opacity-10">
-                    <i data-lucide="hammer" class="w-24 h-24 text-blue-500"></i>
-                </div>
-                <div class="relative z-10">
-                    <div class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mb-4 text-blue-400">
-                        <i data-lucide="sparkles" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-2">2. A Lapidação</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">
-                        A pepita vem suja (marcas d'água, legendas ruins). Nós limpamos e polimos para ela brilhar mais.
-                    </p>
-                    <div class="mt-4 p-3 bg-dark-900/50 rounded-lg border border-dashed border-slate-700">
-                        <div class="flex items-center justify-between text-xs text-slate-300">
-                            <span>Bruto</span>
-                            <i data-lucide="arrow-right" class="w-3 h-3 text-slate-500"></i>
-                            <span class="text-neon-blue font-bold">Premium</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="story-card bg-dark-800 p-6 rounded-2xl border border-white/5 shadow-xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 p-4 opacity-10">
-                    <i data-lucide="store" class="w-24 h-24 text-purple-500"></i>
-                </div>
-                <div class="relative z-10">
-                    <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mb-4 text-purple-400">
-                        <i data-lucide="package-check" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-2">3. O Estoque</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">
-                        Não vendemos um por um. Enchemos as prateleiras (Google Drive) e deixamos programado para a loja abrir sozinha todos os dias.
-                    </p>
-                </div>
-            </div>
-
-             <!-- Card 4 -->
-             <div class="story-card bg-gradient-to-br from-dark-800 to-green-900/20 p-6 rounded-2xl border border-green-500/20 shadow-xl relative overflow-hidden">
-                <div class="relative z-10 text-center">
-                    <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-4 mx-auto text-green-400 animate-float">
-                        <i data-lucide="hand-coins" class="w-8 h-8"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">4. A Monetização</h3>
-                    <p class="text-sm text-slate-300 leading-relaxed">
-                        As redes sociais pagam pelas visualizações. Quanto mais "pedras polidas" na vitrine, mais gente olha, mais dinheiro entra.
-                    </p>
-                </div>
-            </div>
-            
-            <div class="text-center pt-4">
-                <button onclick="switchTab('ops')" class="text-xs text-neon-blue hover:text-white transition-colors flex items-center justify-center gap-1 mx-auto">
-                    Ir para Ferramentas <i data-lucide="arrow-right" class="w-3 h-3"></i>
-                </button>
-            </div>
-        </div>
-
-
-        <!-- ================= ABA 2: OPERACIONAL (Ferramentas) ================= -->
-        <div id="view-ops" class="hidden space-y-4">
-            <!-- Passo 1: Mineração -->
-            <div class="glass-panel rounded-2xl p-4 cursor-pointer hover:border-neon-yellow/50 transition-colors" onclick="toggleStep('step1')">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="bg-yellow-500/10 p-2 rounded-lg text-yellow-400">
-                            <i data-lucide="search"></i>
-                        </div>
-                        <div>
-                            <h2 class="font-bold text-lg">01. Mineração</h2>
-                            <p class="text-xs text-slate-400">Encontrar Vídeos</p>
-                        </div>
-                    </div>
-                    <i data-lucide="chevron-down" class="text-slate-500 transition-transform" id="icon-step1"></i>
-                </div>
-                <div id="step1" class="content-box">
-                    <div class="grid grid-cols-1 gap-2 mt-2">
-                        <a href="https://ads.tiktok.com/business/creativecenter/inspiration/topads/pc/en" target="_blank" class="tech-btn bg-slate-800/50 p-3 rounded-lg flex items-center justify-between border border-white/5 hover:bg-slate-700/50 transition">
-                            <span class="text-sm">TikTok Creative Center</span> <i data-lucide="external-link" class="w-4 h-4 text-slate-400"></i>
-                        </a>
-                        <a href="https://www.instagram.com/explore/" target="_blank" class="tech-btn bg-slate-800/50 p-3 rounded-lg flex items-center justify-between border border-white/5 hover:bg-slate-700/50 transition">
-                            <span class="text-sm">Instagram Explore</span> <i data-lucide="external-link" class="w-4 h-4 text-slate-400"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Passo 2: Extração -->
-            <div class="glass-panel rounded-2xl p-4 cursor-pointer hover:border-neon-blue/50 transition-colors" onclick="toggleStep('step2')">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="bg-blue-500/10 p-2 rounded-lg text-blue-400">
-                            <i data-lucide="download"></i>
-                        </div>
-                        <div>
-                            <h2 class="font-bold text-lg">02. Download</h2>
-                            <p class="text-xs text-slate-400">Sem Marca D'água</p>
-                        </div>
-                    </div>
-                    <i data-lucide="chevron-down" class="text-slate-500 transition-transform" id="icon-step2"></i>
-                </div>
-                <div id="step2" class="content-box">
-                    <div class="grid grid-cols-2 gap-2 mt-2">
-                        <a href="https://snaptik.app/" target="_blank" class="tech-btn bg-blue-900/20 border border-blue-500/30 p-3 rounded-lg text-center hover:bg-blue-900/40 transition">
-                            <i data-lucide="music-2" class="mx-auto mb-1 text-blue-400 w-5 h-5"></i> <span class="text-xs font-bold">SnapTik</span>
-                        </a>
-                        <a href="https://snapinsta.app/" target="_blank" class="tech-btn bg-pink-900/20 border border-pink-500/30 p-3 rounded-lg text-center hover:bg-pink-900/40 transition">
-                            <i data-lucide="instagram" class="mx-auto mb-1 text-pink-400 w-5 h-5"></i> <span class="text-xs font-bold">SnapInsta</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Passo 3: Edição -->
-            <div class="glass-panel rounded-2xl p-4 cursor-pointer hover:border-neon-purple/50 transition-colors" onclick="toggleStep('step3')">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="bg-purple-500/10 p-2 rounded-lg text-purple-400">
-                            <i data-lucide="scissors"></i>
-                        </div>
-                        <div>
-                            <h2 class="font-bold text-lg">03. Edição</h2>
-                            <p class="text-xs text-slate-400">Limpeza e Cuts</p>
-                        </div>
-                    </div>
-                    <i data-lucide="chevron-down" class="text-slate-500 transition-transform" id="icon-step3"></i>
-                </div>
-                <div id="step3" class="content-box">
-                    <div class="space-y-2 mt-2">
-                        <a href="https://ani-eraser.media.io/" target="_blank" class="tech-btn block w-full bg-purple-900/20 border border-purple-500/30 p-3 rounded-lg flex items-center gap-3 hover:bg-purple-900/40 transition">
-                            <i data-lucide="eraser" class="text-purple-300 w-5 h-5"></i>
-                            <div class="text-left">
-                                <span class="block text-sm font-bold">AniEraser AI</span>
-                                <span class="block text-[10px] text-purple-300">Apagar textos/emojis</span>
-                            </div>
-                        </a>
-                        <a href="https://www.capcut.com/editor" target="_blank" class="tech-btn block w-full bg-slate-800 border border-white/10 p-3 rounded-lg flex items-center gap-3 hover:bg-slate-700 transition">
-                            <i data-lucide="video" class="text-slate-300 w-5 h-5"></i>
-                            <div class="text-left">
-                                <span class="block text-sm font-bold">CapCut Web</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-             <!-- Passo 4: Drive -->
-             <div class="glass-panel rounded-2xl p-4 cursor-pointer hover:border-green-500/50 transition-colors" onclick="toggleStep('step4')">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="bg-green-500/10 p-2 rounded-lg text-green-400">
-                            <i data-lucide="hard-drive"></i>
-                        </div>
-                        <div>
-                            <h2 class="font-bold text-lg">04. Organização</h2>
-                            <p class="text-xs text-slate-400">Google Drive</p>
-                        </div>
-                    </div>
-                    <i data-lucide="chevron-down" class="text-slate-500 transition-transform" id="icon-step4"></i>
-                </div>
-                <div id="step4" class="content-box">
-                    <a href="https://drive.google.com/" target="_blank" class="tech-btn block w-full bg-green-900/20 mt-2 border border-green-500/30 p-4 rounded-lg flex items-center justify-center gap-2 hover:bg-green-900/40 transition">
-                        <i data-lucide="cloud" class="text-green-400 w-5 h-5"></i> <span class="font-bold text-green-100">Acessar Drive</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= ABA 3: DEV / KAIO (Pipeline Técnico) ================= -->
-        <div id="view-dev" class="hidden space-y-6 pt-4">
-            
-            <div class="bg-dark-900 border border-neon-cyan/30 p-4 rounded-xl shadow-lg shadow-neon-cyan/5">
-                <div class="flex items-start gap-3">
-                    <i data-lucide="bot" class="text-neon-cyan w-6 h-6 mt-1 flex-shrink-0"></i>
-                    <div>
-                        <h3 class="text-neon-cyan font-mono text-xs font-bold mb-1">AUTOMATION BLUEPRINT</h3>
-                        <p class="text-xs text-slate-400 leading-relaxed font-mono">
-                            Kaio, este é o fluxo de dados para a arquitetura do bot. Foco na eliminação de tarefas repetitivas (ETL).
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="relative pl-4 border-l border-slate-800 ml-4 space-y-8 py-2">
+        <!-- ================= ABA 1: VISUAL (O Processo) ================= -->
+        <div id="view-visual" class="fade-in">
+            <div class="relative pl-6 space-y-8 before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-gradient-to-b before:from-luxury-gold before:via-luxury-accent before:to-transparent before:opacity-30">
                 
-                <!-- Node 1 -->
-                <div class="relative pl-6">
-                    <div class="absolute left-[-21px] top-1 bg-dark-950 border border-slate-600 rounded-full p-1.5 z-10">
-                        <i data-lucide="database" class="w-3 h-3 text-slate-400"></i>
+                <!-- Card 1 -->
+                <div class="glass-card p-5 rounded-2xl relative">
+                    <div class="absolute -left-[27px] top-6 w-3 h-3 rounded-full bg-luxury-gold shadow-[0_0_10px_#D4AF37]"></div>
+                    <div class="flex items-start justify-between mb-2">
+                        <span class="text-[10px] font-mono text-luxury-gold border border-luxury-gold/30 px-2 py-0.5 rounded-full">FASE 01</span>
+                        <i data-lucide="pickaxe" class="w-4 h-4 text-slate-500"></i>
                     </div>
-                    <h4 class="font-bold text-sm text-white font-mono">1. Scraper / Input</h4>
-                    <div class="mt-2 bg-black/40 border border-slate-800 p-3 rounded-lg overflow-x-auto">
-                        <pre class="text-[10px] font-mono text-neon-green">
-def check_virality(url):
-  # Use Unofficial TikTok API
-  data = api.get_video_meta(url)
-  engagement = (likes + comments) / views
-  return engagement > 0.05</pre>
+                    <h3 class="text-white text-lg font-medium">Garimpo Digital</h3>
+                    <p class="text-sm text-slate-400 mt-1 leading-relaxed">Identificação de ativos virais (vídeos) com alto potencial de retenção.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-5 rounded-2xl relative">
+                    <div class="absolute -left-[27px] top-6 w-3 h-3 rounded-full bg-luxury-accent shadow-[0_0_10px_#3B82F6]"></div>
+                    <div class="flex items-start justify-between mb-2">
+                        <span class="text-[10px] font-mono text-luxury-accent border border-luxury-accent/30 px-2 py-0.5 rounded-full">FASE 02</span>
+                        <i data-lucide="sparkles" class="w-4 h-4 text-slate-500"></i>
+                    </div>
+                    <h3 class="text-white text-lg font-medium">Lapidação Premium</h3>
+                    <p class="text-sm text-slate-400 mt-1 leading-relaxed">Edição, limpeza de metadados e otimização para retenção máxima.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-5 rounded-2xl relative bg-gradient-to-br from-luxury-card to-luxury-gold/5 border-luxury-gold/20">
+                    <div class="absolute -left-[27px] top-6 w-3 h-3 rounded-full bg-green-500 shadow-[0_0_10px_#10B981]"></div>
+                    <div class="flex items-start justify-between mb-2">
+                        <span class="text-[10px] font-mono text-green-400 border border-green-500/30 px-2 py-0.5 rounded-full">FASE 03</span>
+                        <i data-lucide="wallet" class="w-4 h-4 text-luxury-gold"></i>
+                    </div>
+                    <h3 class="text-white text-lg font-medium">Monetização</h3>
+                    <p class="text-sm text-slate-400 mt-1 leading-relaxed">Conversão da audiência acumulada em receita através de Infoprodutos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= ABA 2: TOOLS (Ferramentas) ================= -->
+        <div id="view-tools" class="hidden fade-in space-y-3">
+            
+            <!-- Tool Item -->
+            <div class="glass-card rounded-xl overflow-hidden group">
+                <div class="p-4 flex items-center justify-between cursor-pointer" onclick="toggleStep('tool1')">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-luxury-card border border-white/5 flex items-center justify-center text-luxury-gold">
+                            <i data-lucide="search" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-medium">Mineração</h4>
+                            <p class="text-xs text-slate-500">Encontrar Virais</p>
+                        </div>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center transition-transform group-active:scale-95">
+                        <i data-lucide="chevron-down" id="icon-tool1" class="w-4 h-4 text-slate-400 transition-transform"></i>
+                    </div>
+                </div>
+                <div id="tool1" class="content-box bg-black/20">
+                    <div class="p-4 grid grid-cols-1 gap-2 border-t border-white/5">
+                        <a href="https://ads.tiktok.com/business/creativecenter/inspiration/topads/pc/en" target="_blank" class="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
+                            <span class="text-sm text-slate-200">TikTok Creative Center</span>
+                            <i data-lucide="external-link" class="w-3 h-3 text-slate-500"></i>
+                        </a>
+                        <a href="https://trends.google.com.br/" target="_blank" class="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
+                            <span class="text-sm text-slate-200">Google Trends</span>
+                            <i data-lucide="external-link" class="w-3 h-3 text-slate-500"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool Item -->
+            <div class="glass-card rounded-xl overflow-hidden group">
+                <div class="p-4 flex items-center justify-between cursor-pointer" onclick="toggleStep('tool2')">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-luxury-card border border-white/5 flex items-center justify-center text-luxury-accent">
+                            <i data-lucide="download" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-medium">Extração</h4>
+                            <p class="text-xs text-slate-500">Download Limpo</p>
+                        </div>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
+                        <i data-lucide="chevron-down" id="icon-tool2" class="w-4 h-4 text-slate-400 transition-transform"></i>
+                    </div>
+                </div>
+                <div id="tool2" class="content-box bg-black/20">
+                    <div class="p-4 grid grid-cols-2 gap-2 border-t border-white/5">
+                        <a href="https://snaptik.app/" target="_blank" class="p-3 rounded-lg bg-white/5 hover:bg-white/10 text-center border border-white/5">
+                            <p class="text-xs font-bold text-white mb-1">SnapTik</p>
+                            <p class="text-[10px] text-slate-500">TikTok</p>
+                        </a>
+                        <a href="https://snapinsta.app/" target="_blank" class="p-3 rounded-lg bg-white/5 hover:bg-white/10 text-center border border-white/5">
+                            <p class="text-xs font-bold text-white mb-1">SnapInsta</p>
+                            <p class="text-[10px] text-slate-500">Instagram</p>
+                        </a>
+                        <a href="https://savetube.me/" target="_blank" class="col-span-2 p-3 rounded-lg bg-white/5 hover:bg-white/10 text-center border border-white/5">
+                            <p class="text-xs font-bold text-white mb-1">SaveTube</p>
+                            <p class="text-[10px] text-slate-500">Shorts & Youtube</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool Item -->
+            <div class="glass-card rounded-xl overflow-hidden group">
+                <div class="p-4 flex items-center justify-between cursor-pointer" onclick="toggleStep('tool3')">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-luxury-card border border-white/5 flex items-center justify-center text-purple-400">
+                            <i data-lucide="scissors" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-medium">Refino</h4>
+                            <p class="text-xs text-slate-500">Edição e IA</p>
+                        </div>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
+                        <i data-lucide="chevron-down" id="icon-tool3" class="w-4 h-4 text-slate-400 transition-transform"></i>
+                    </div>
+                </div>
+                <div id="tool3" class="content-box bg-black/20">
+                    <div class="p-4 grid gap-2 border-t border-white/5">
+                        <a href="https://ani-eraser.media.io/" target="_blank" class="flex items-center gap-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5">
+                            <i data-lucide="eraser" class="w-4 h-4 text-purple-400"></i>
+                            <span class="text-sm text-slate-200">AniEraser (Removedor IA)</span>
+                        </a>
+                        <a href="https://www.capcut.com/editor" target="_blank" class="flex items-center gap-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5">
+                            <i data-lucide="video" class="w-4 h-4 text-purple-400"></i>
+                            <span class="text-sm text-slate-200">CapCut Web</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Tool Item -->
+             <div class="glass-card rounded-xl overflow-hidden group">
+                <div class="p-4 flex items-center justify-between cursor-pointer" onclick="toggleStep('tool4')">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-luxury-card border border-white/5 flex items-center justify-center text-green-400">
+                            <i data-lucide="hard-drive" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-medium">Estoque</h4>
+                            <p class="text-xs text-slate-500">Organização</p>
+                        </div>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
+                        <i data-lucide="chevron-down" id="icon-tool4" class="w-4 h-4 text-slate-400 transition-transform"></i>
+                    </div>
+                </div>
+                <div id="tool4" class="content-box bg-black/20">
+                    <div class="p-4 border-t border-white/5">
+                         <a href="https://drive.google.com/" target="_blank" class="flex items-center justify-center gap-3 p-4 rounded-lg bg-green-500/10 hover:bg-green-500/20 border border-green-500/20 text-green-400 font-medium">
+                            <i data-lucide="cloud" class="w-4 h-4"></i> Acessar Google Drive
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Tool Item -->
+             <div class="glass-card rounded-xl overflow-hidden group">
+                <div class="p-4 flex items-center justify-between cursor-pointer" onclick="toggleStep('tool5')">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-luxury-card border border-white/5 flex items-center justify-center text-red-400">
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-medium">Publicação</h4>
+                            <p class="text-xs text-slate-500">Distribuição</p>
+                        </div>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
+                        <i data-lucide="chevron-down" id="icon-tool5" class="w-4 h-4 text-slate-400 transition-transform"></i>
+                    </div>
+                </div>
+                <div id="tool5" class="content-box bg-black/20">
+                    <div class="p-4 grid gap-2 border-t border-white/5">
+                        <a href="https://business.facebook.com/" target="_blank" class="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5">
+                            <span class="text-sm text-slate-200">Meta Business Suite</span>
+                            <i data-lucide="external-link" class="w-3 h-3 text-slate-500"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/upload" target="_blank" class="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5">
+                            <span class="text-sm text-slate-200">TikTok Upload</span>
+                            <i data-lucide="external-link" class="w-3 h-3 text-slate-500"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= ABA 3: METAS (Planejamento) ================= -->
+        <div id="view-meta" class="hidden fade-in space-y-6">
+            
+            <div class="glass-card p-6 rounded-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-luxury-gold blur-[80px] opacity-10 rounded-full pointer-events-none"></div>
+                
+                <div class="flex items-center gap-2 mb-6">
+                    <i data-lucide="crosshair" class="text-luxury-gold w-4 h-4"></i>
+                    <h3 class="text-xs font-bold text-luxury-gold uppercase tracking-widest">Estratégia de Volume</h3>
+                </div>
+
+                <div class="grid grid-cols-2 gap-8 mb-6">
+                    <div>
+                        <label class="block text-[10px] text-slate-500 uppercase font-bold mb-2">Vídeos por Dia</label>
+                        <input type="number" id="meta-videos" value="8" oninput="calculateGoals()" class="input-money text-center w-full focus:text-luxury-gold">
+                        <p class="text-[9px] text-center text-slate-600 mt-2">cada plataforma</p>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-500 uppercase font-bold mb-2">Views Mínimas</label>
+                        <input type="number" id="meta-views" value="1000" oninput="calculateGoals()" class="input-money text-center w-full focus:text-luxury-gold">
+                        <p class="text-[9px] text-center text-slate-600 mt-2">por vídeo</p>
                     </div>
                 </div>
 
-                <!-- Node 2 -->
-                <div class="relative pl-6">
-                    <div class="absolute left-[-21px] top-1 bg-dark-950 border border-blue-600 rounded-full p-1.5 z-10 shadow-lg shadow-blue-500/20">
-                        <i data-lucide="download-cloud" class="w-3 h-3 text-blue-400"></i>
+                <div class="bg-white/5 rounded-xl p-4 border border-white/5">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs text-slate-400">Volume Diário</span>
+                        <span id="daily-total" class="text-sm font-mono text-white">40.000</span>
                     </div>
-                    <h4 class="font-bold text-sm text-white font-mono">2. Raw Ingestion</h4>
-                    <div class="mt-2 bg-black/40 border border-blue-900/30 p-3 rounded-lg">
-                        <p class="text-[10px] text-blue-300 font-mono mb-1"># Libs: yt_dlp</p>
-                        <pre class="text-[10px] font-mono text-slate-400">yt_dlp.YoutubeDL({'outtmpl': '/tmp/%(id)s.mp4'})</pre>
+                    <div class="w-full bg-black/50 h-1 rounded-full overflow-hidden">
+                        <div class="h-full w-full bg-luxury-gold/50"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center space-y-1">
+                <p class="text-[10px] uppercase tracking-widest text-slate-500">Projeção Mensal (30 Dias)</p>
+                <p id="projected-views" class="text-4xl font-mono font-bold text-gradient-gold">1.200.000</p>
+            </div>
+
+            <!-- Cards de Receita -->
+            <div class="grid gap-3">
+                <div class="flex items-center justify-between glass-card p-4 rounded-xl border-l-2 border-l-yellow-500">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded bg-yellow-500/10 text-yellow-500"><i data-lucide="book-open" class="w-4 h-4"></i></div>
+                        <div>
+                            <p class="text-xs text-slate-400">E-book</p>
+                            <p class="text-xs font-bold text-white">R$ 19,90</p>
+                        </div>
+                    </div>
+                    <p id="goal-ebook" class="text-sm font-mono text-luxury-gold font-bold">R$ 0,00</p>
+                </div>
+
+                <div class="flex items-center justify-between glass-card p-4 rounded-xl border-l-2 border-l-purple-500">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded bg-purple-500/10 text-purple-500"><i data-lucide="graduation-cap" class="w-4 h-4"></i></div>
+                        <div>
+                            <p class="text-xs text-slate-400">Curso</p>
+                            <p class="text-xs font-bold text-white">R$ 49,90</p>
+                        </div>
+                    </div>
+                    <p id="goal-course" class="text-sm font-mono text-purple-400 font-bold">R$ 0,00</p>
+                </div>
+
+                <div class="flex items-center justify-between glass-card p-4 rounded-xl border-l-2 border-l-green-500 shadow-glow-gold">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded bg-green-500/10 text-green-500"><i data-lucide="rocket" class="w-4 h-4"></i></div>
+                        <div>
+                            <p class="text-xs text-slate-400">Full Project</p>
+                            <p class="text-xs font-bold text-white">R$ 97,00</p>
+                        </div>
+                    </div>
+                    <p id="goal-project" class="text-sm font-mono text-green-400 font-bold">R$ 0,00</p>
+                </div>
+            </div>
+            
+            <p class="text-center text-[10px] text-slate-600">Baseado em taxa de conversão de 1%</p>
+        </div>
+
+
+        <!-- ================= ABA 4: SIMULADOR (Real) ================= -->
+        <div id="view-sim" class="hidden fade-in space-y-6">
+            
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Audiência Atual</h3>
+                    <span class="text-[10px] bg-white/5 px-2 py-1 rounded text-slate-400">Total Mensal</span>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4">
+                        <i data-lucide="music-2" class="w-4 h-4 text-white"></i>
+                        <input type="number" id="in-tiktok" value="10000" oninput="calculateSim()" class="input-money flex-1" placeholder="0">
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <i data-lucide="instagram" class="w-4 h-4 text-pink-500"></i>
+                        <input type="number" id="in-insta" value="5000" oninput="calculateSim()" class="input-money flex-1" placeholder="0">
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <i data-lucide="youtube" class="w-4 h-4 text-red-500"></i>
+                        <input type="number" id="in-yt" value="2000" oninput="calculateSim()" class="input-money flex-1" placeholder="0">
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <i data-lucide="facebook" class="w-4 h-4 text-blue-500"></i>
+                        <input type="number" id="in-fb" value="1000" oninput="calculateSim()" class="input-money flex-1" placeholder="0">
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <i data-lucide="video" class="w-4 h-4 text-orange-500"></i>
+                        <input type="number" id="in-kwai" value="2000" oninput="calculateSim()" class="input-money flex-1" placeholder="0">
                     </div>
                 </div>
 
-                <!-- Node 3 -->
-                <div class="relative pl-6">
-                    <div class="absolute left-[-21px] top-1 bg-dark-950 border border-purple-600 rounded-full p-1.5 z-10 shadow-lg shadow-purple-500/20">
-                        <i data-lucide="wand-2" class="w-3 h-3 text-purple-400"></i>
-                    </div>
-                    <h4 class="font-bold text-sm text-white font-mono">3. AI Processing Pipeline</h4>
-                    <div class="mt-2 bg-black/40 border border-purple-900/30 p-3 rounded-lg space-y-2">
-                        <div class="flex items-center gap-2 text-[10px] text-slate-300 font-mono">
-                            <span class="bg-purple-500/20 px-1 rounded text-purple-300">Whisper</span> Transcrever áudio
-                        </div>
-                        <div class="flex items-center gap-2 text-[10px] text-slate-300 font-mono">
-                            <span class="bg-blue-500/20 px-1 rounded text-blue-300">GPT-4o</span> Traduzir/Resumir
-                        </div>
-                        <div class="flex items-center gap-2 text-[10px] text-slate-300 font-mono">
-                            <span class="bg-red-500/20 px-1 rounded text-red-300">FFmpeg</span> Burn subtitles
-                        </div>
+                <div class="mt-8 pt-6 border-t border-white/10 text-center">
+                    <p class="text-[10px] uppercase tracking-widest text-slate-500">Acumulado Real</p>
+                    <p id="total-views" class="text-3xl font-mono font-bold text-white mt-1">20.000</p>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                 <div class="flex items-center justify-between glass-card p-4 rounded-xl">
+                    <span class="text-xs text-slate-400">Potencial E-book</span>
+                    <p id="res-ebook" class="text-sm font-mono text-yellow-500 font-bold">R$ 0,00</p>
+                </div>
+                <div class="flex items-center justify-between glass-card p-4 rounded-xl">
+                    <span class="text-xs text-slate-400">Potencial Curso</span>
+                    <p id="res-course" class="text-sm font-mono text-purple-400 font-bold">R$ 0,00</p>
+                </div>
+                <div class="flex items-center justify-between glass-card p-4 rounded-xl border border-green-500/20 shadow-glow-gold">
+                    <span class="text-xs text-slate-400">Potencial Full</span>
+                    <p id="res-full" class="text-sm font-mono text-green-400 font-bold">R$ 0,00</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= ABA 5: DEV (Kaio) ================= -->
+        <div id="view-dev" class="hidden fade-in space-y-6">
+            <div class="glass-card p-5 rounded-2xl border-l-2 border-l-luxury-accent">
+                <div class="flex items-center gap-3 mb-2">
+                    <i data-lucide="terminal" class="w-4 h-4 text-luxury-accent"></i>
+                    <h3 class="text-xs font-mono font-bold text-luxury-accent">SYSTEM_BLUEPRINT_V1</h3>
+                </div>
+                <p class="text-xs text-slate-400 font-mono leading-relaxed">
+                    Kaio, a automação deve focar no <span class="text-white">High Volume Throughput</span>. O gargalo atual é o upload manual.
+                </p>
+            </div>
+
+            <div class="relative pl-8 space-y-8 before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-800">
+                
+                <div class="relative">
+                    <div class="absolute -left-[27px] top-1 w-3 h-3 rounded-full bg-slate-800 border border-slate-600"></div>
+                    <h4 class="text-sm font-bold font-mono text-white">01. Ingestion Node</h4>
+                    <div class="mt-2 bg-black/50 border border-white/5 p-3 rounded-lg overflow-x-auto">
+                        <code class="text-[10px] font-mono text-blue-300">redis_queue.add('tk_scraper', interval='10m')</code>
                     </div>
                 </div>
 
-                <!-- Node 4 -->
-                <div class="relative pl-6">
-                    <div class="absolute left-[-21px] top-1 bg-dark-950 border border-green-600 rounded-full p-1.5 z-10 shadow-lg shadow-green-500/20">
-                        <i data-lucide="server" class="w-3 h-3 text-green-400"></i>
+                <div class="relative">
+                    <div class="absolute -left-[27px] top-1 w-3 h-3 rounded-full bg-slate-800 border border-slate-600"></div>
+                    <h4 class="text-sm font-bold font-mono text-white">02. Processing Core</h4>
+                    <div class="mt-2 bg-black/50 border border-white/5 p-3 rounded-lg">
+                        <p class="text-[10px] font-mono text-slate-400">> FFmpeg (Strip Metadata)<br>> Whisper (Transcribe)<br>> GPT-4o (Viral Hook Rewrite)</p>
                     </div>
-                    <h4 class="font-bold text-sm text-white font-mono">4. Storage & Webhook</h4>
-                    <p class="text-xs text-slate-500 mt-1">Upload automático para a pasta "Prontos" no G-Drive.</p>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-[27px] top-1 w-3 h-3 rounded-full bg-green-900 border border-green-500 shadow-[0_0_10px_#10B981]"></div>
+                    <h4 class="text-sm font-bold font-mono text-white">03. Deployment</h4>
+                    <p class="text-xs text-slate-500 mt-1">Multi-threaded upload to 5 endpoints.</p>
                 </div>
             </div>
         </div>
 
     </main>
+
+    <!-- MENU INFERIOR (Bottom Nav) -->
+    <nav class="fixed bottom-0 w-full z-50 bg-luxury-card/90 backdrop-blur-xl border-t border-white/5 px-6 pb-8 pt-4 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-between items-center max-w-md mx-auto">
+            <button onclick="switchTab('visual')" id="tab-visual" class="nav-item active flex flex-col items-center gap-1 text-slate-500">
+                <i data-lucide="map" class="w-5 h-5"></i>
+                <span class="text-[9px] font-medium tracking-wide">MAPA</span>
+            </button>
+            <button onclick="switchTab('tools')" id="tab-tools" class="nav-item flex flex-col items-center gap-1 text-slate-500">
+                <i data-lucide="zap" class="w-5 h-5"></i>
+                <span class="text-[9px] font-medium tracking-wide">TOOLS</span>
+            </button>
+            <button onclick="switchTab('meta')" id="tab-meta" class="nav-item flex flex-col items-center gap-1 text-slate-500">
+                <i data-lucide="crosshair" class="w-5 h-5"></i>
+                <span class="text-[9px] font-medium tracking-wide">METAS</span>
+            </button>
+            <button onclick="switchTab('sim')" id="tab-sim" class="nav-item flex flex-col items-center gap-1 text-slate-500">
+                <i data-lucide="wallet" class="w-5 h-5"></i>
+                <span class="text-[9px] font-medium tracking-wide">R$</span>
+            </button>
+            <button onclick="switchTab('dev')" id="tab-dev" class="nav-item flex flex-col items-center gap-1 text-slate-500">
+                <i data-lucide="code-2" class="w-5 h-5"></i>
+                <span class="text-[9px] font-medium tracking-wide">DEV</span>
+            </button>
+        </div>
+    </nav>
     
-    <footer class="text-center text-slate-700 text-[10px] py-6 mt-4 font-mono">
-        SYSTEM_ID: DARK_CONTENT_V3
-    </footer>
-
     <script>
-        // Inicializa ícones
-        lucide.createIcons();
+        document.addEventListener("DOMContentLoaded", function() {
+            lucide.createIcons();
+            calculateSim();
+            calculateGoals();
+        });
 
-        // Sistema de Abas
+        // Toggle Tabs
         function switchTab(tabName) {
-            // Esconde todas as views
-            ['visual', 'ops', 'dev'].forEach(t => {
+            // Hide all views
+            ['visual', 'tools', 'meta', 'sim', 'dev'].forEach(t => {
                 document.getElementById('view-' + t).classList.add('hidden');
-                document.getElementById('tab-' + t).classList.remove('active');
+                document.getElementById('tab-' + t).classList.remove('active', 'text-luxury-gold');
+                document.getElementById('tab-' + t).classList.add('text-slate-500');
             });
-
-            // Mostra a selecionada
+            
+            // Show selected view
             document.getElementById('view-' + tabName).classList.remove('hidden');
-            document.getElementById('tab-' + tabName).classList.add('active');
+            
+            // Activate Nav Item
+            const activeBtn = document.getElementById('tab-' + tabName);
+            activeBtn.classList.add('active', 'text-luxury-gold');
+            activeBtn.classList.remove('text-slate-500');
+
+            // Re-render icons just in case
+            lucide.createIcons();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Sistema de Acordeão (Aba Ops)
+        // Accordion for Tools
         function toggleStep(stepId) {
             const content = document.getElementById(stepId);
             const icon = document.getElementById('icon-' + stepId);
-            
-            // Fecha outros
-            const allContents = document.querySelectorAll('.content-box');
-            const allIcons = document.querySelectorAll('[id^="icon-"]');
-            
-            allContents.forEach(el => {
-                if(el.id !== stepId) el.classList.remove('active');
-            });
-            allIcons.forEach(el => {
-                if(el.id !== 'icon-' + stepId) el.style.transform = 'rotate(0deg)';
-            });
-
-            // Toggle atual
             content.classList.toggle('active');
             if(content.classList.contains('active')) {
                 icon.style.transform = 'rotate(180deg)';
+                icon.style.color = '#D4AF37';
             } else {
                 icon.style.transform = 'rotate(0deg)';
+                icon.style.color = '#94a3b8';
             }
+        }
+
+        // Formatting Utils
+        const fmtMoney = (val) => val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        const fmtNum = (val) => val.toLocaleString('pt-BR');
+
+        // Logic: Metas (Planning)
+        function calculateGoals() {
+            const videosPerDay = parseInt(document.getElementById('meta-videos').value) || 0;
+            const viewsPerVideo = parseInt(document.getElementById('meta-views').value) || 0;
+
+            const dailyTotal = videosPerDay * viewsPerVideo * 5; // 5 Networks
+            const monthlyProjected = dailyTotal * 30;
+            const buyers = Math.floor(monthlyProjected * 0.01);
+
+            document.getElementById('daily-total').innerText = fmtNum(dailyTotal);
+            document.getElementById('projected-views').innerText = fmtNum(monthlyProjected);
+            
+            document.getElementById('goal-ebook').innerText = fmtMoney(buyers * 19.90);
+            document.getElementById('goal-course').innerText = fmtMoney(buyers * 49.90);
+            document.getElementById('goal-project').innerText = fmtMoney(buyers * 97.00);
+        }
+
+        // Logic: Sim (Real Status)
+        function calculateSim() {
+            const vTik = parseInt(document.getElementById('in-tiktok').value) || 0;
+            const vInsta = parseInt(document.getElementById('in-insta').value) || 0;
+            const vYt = parseInt(document.getElementById('in-yt').value) || 0;
+            const vFb = parseInt(document.getElementById('in-fb').value) || 0;
+            const vKwai = parseInt(document.getElementById('in-kwai').value) || 0;
+
+            const totalViews = vTik + vInsta + vYt + vFb + vKwai;
+            const buyers = Math.floor(totalViews * 0.01);
+
+            document.getElementById('total-views').innerText = fmtNum(totalViews);
+            document.getElementById('res-ebook').innerText = fmtMoney(buyers * 19.90);
+            document.getElementById('res-course').innerText = fmtMoney(buyers * 49.90);
+            document.getElementById('res-full').innerText = fmtMoney(buyers * 97.00);
         }
     </script>
 </body>
